@@ -4,36 +4,41 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class Department {
+    private String name = "";
+    private ArrayList<Employee> employees = new ArrayList<>();
+    double avgSalary = 0.;
+    boolean avgSalaryIsReady = false;
+
     Department(String name){
-        _name = name;
+        this.name = name;
     }
 
     public void addEmployee(Employee employee){
-        _employees.add(employee);
-        _avgSalaryIsReady = false;
+        employees.add(employee);
+        avgSalaryIsReady = false;
     }
 
     public boolean freeEmployee(Employee employee){
-        boolean success = _employees.remove(employee);
+        boolean success = employees.remove(employee);
         if (success)
-            _avgSalaryIsReady = false;
+            avgSalaryIsReady = false;
         return success;
     }
 
-    public String get_name(){
-        return _name;
+    public String getName(){
+        return name;
     }
 
     public double avgSalary(){
-        if (_avgSalaryIsReady){
-            return _avgSalary;
+        if (avgSalaryIsReady){
+            return avgSalary;
         }
         else {
-            if (_employees.isEmpty())
+            if (employees.isEmpty())
                     return 0.;
-            _avgSalary = _employees.stream().mapToDouble(Employee::get_salary).average().getAsDouble();
-            _avgSalaryIsReady = true;
-            return _avgSalary;
+            avgSalary = employees.stream().mapToDouble(Employee::getSalary).average().getAsDouble();
+            avgSalaryIsReady = true;
+            return avgSalary;
         }
     }
 
@@ -49,17 +54,12 @@ public class Department {
             target = this;
         }
 
-        source._employees.stream().filter(
-                                        (emp) -> emp.get_salary() < source.avgSalary()
-                                                && emp.get_salary() > target.avgSalary())
+        source.employees.stream().filter(
+                                        (emp) -> emp.getSalary() < source.avgSalary()
+                                                && emp.getSalary() > target.avgSalary())
                                         .forEach(
-                                                (emp)-> printer.println("Сотрудник " + emp.get_name()
-                                                + ": отдел " + source.get_name()
-                                                + " -> отдел " + target.get_name()));
+                                                (emp)-> printer.println("Сотрудник " + emp.getName()
+                                                + ": отдел " + source.getName()
+                                                + " -> отдел " + target.getName()));
     }
-
-    private String _name = "";
-    private ArrayList<Employee> _employees = new ArrayList<>();
-    double _avgSalary = 0.;
-    boolean _avgSalaryIsReady = false;
 }

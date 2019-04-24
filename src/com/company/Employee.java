@@ -1,19 +1,20 @@
 package com.company;
 
 public class Employee {
+    private String name = "";
+    private double salary = 0.;
+
     Employee(String name, double salary){
-        _name = name;
-        _salary = salary;
+        this.name = name;
+        this.salary = salary;
     }
 
-    public String get_name() {
-        return _name;
+    public String getName() {
+        return name;
     }
 
-    public double get_salary() {
-        return _salary;
+    public double getSalary() {
+        return salary;
     }
 
-    private String _name = "";
-    private double _salary = 0.;
 }

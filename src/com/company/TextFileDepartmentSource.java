@@ -5,6 +5,9 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class TextFileDepartmentSource implements DepartmentSource {
+    private boolean isOk = true;
+    private HashMap<String ,Department> departments = new HashMap<>();
+
     TextFileDepartmentSource(String filepath){
         try (Scanner scanner = new Scanner(new FileInputStream(filepath))){
             while (scanner.hasNextLine()){
@@ -17,27 +20,24 @@ public class TextFileDepartmentSource implements DepartmentSource {
                 String newEmployeeDepartment = strList[1];
                 double newEmployeeSalary = Double.parseDouble(strList[2]);
 
-                _departments.putIfAbsent(newEmployeeDepartment, new Department(newEmployeeDepartment));
-                _departments.get(newEmployeeDepartment).addEmployee(
+                departments.putIfAbsent(newEmployeeDepartment, new Department(newEmployeeDepartment));
+                departments.get(newEmployeeDepartment).addEmployee(
                         new Employee(newEmployeeName, newEmployeeSalary));
 
             }
         } catch (IOException e) {
             e.printStackTrace();
-            _isOk = false;
+            isOk = false;
         }
     }
 
     @Override
     public Stream<Department> departments() {
-        return _departments.values().stream();
+        return departments.values().stream();
     }
 
     @Override
     public boolean isOk() {
-        return _isOk;
+        return isOk;
     }
-
-    private boolean _isOk = true;
-    private HashMap<String ,Department> _departments = new HashMap<>();
 }

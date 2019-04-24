@@ -2,7 +2,9 @@ package com.company;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -14,7 +16,7 @@ public class Main {
             return;
         }
 
-        ArrayList<Department> deps= src.departments();
+        List<Department> deps = src.departments().collect(Collectors.toList());
         if (deps.size() < 2)
         {
             System.out.println("Нужно минимум 2 отдела");

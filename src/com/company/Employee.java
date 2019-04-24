@@ -1,7 +1,7 @@
 package com.company;
 
 public class Employee {
-    Employee (String name, double salary){
+    Employee(String name, double salary){
         _name = name;
         _salary = salary;
     }

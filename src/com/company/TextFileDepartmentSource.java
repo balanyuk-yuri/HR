@@ -2,8 +2,9 @@ package com.company;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Stream;
 
-public class TextFileDepartmentSource implements DepartmentSource{
+public class TextFileDepartmentSource implements DepartmentSource {
     TextFileDepartmentSource(String filepath){
         try (Scanner scanner = new Scanner(new FileInputStream(filepath))){
             while (scanner.hasNextLine()){
@@ -28,8 +29,8 @@ public class TextFileDepartmentSource implements DepartmentSource{
     }
 
     @Override
-    public ArrayList<Department> departments() {
-        return new ArrayList(_departments.values());
+    public Stream<Department> departments() {
+        return _departments.values().stream();
     }
 
     @Override

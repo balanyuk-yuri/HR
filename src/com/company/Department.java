@@ -1,10 +1,7 @@
 package com.company;
 
-import javax.xml.transform.Source;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Department {
     Department(String name){
@@ -52,24 +49,13 @@ public class Department {
             target = this;
         }
 
-        List<Employee> movedEmployees = source._employees.stream().filter(
-                (emp) -> emp.get_salary() < source.avgSalary()
-                && emp.get_salary() > target.avgSalary()).
-                collect(Collectors.toList());
-
-//        System.out.println("До:");
-//        System.out.println("Средняя зп отдела " + source.get_name() + " : " + source.avgSalary());
-//        System.out.println("Средняя зп отдела " + target.get_name() + " : " + target.avgSalary());
-
-        for (Employee emp : movedEmployees){
-//            source.freeEmployee(emp);
-//            target.addEmployee(emp);
-            printer.println("Сотрудник " + emp.get_name() + ": отдел " + source.get_name() + " -> отдел " + target.get_name());
-        }
-
-//        System.out.println("После:");
-//        System.out.println("Средняя зп отдела " + source.get_name() + " : " + source.avgSalary());
-//        System.out.println("Средняя зп отдела " + target.get_name() + " : " + target.avgSalary());
+        source._employees.stream().filter(
+                                        (emp) -> emp.get_salary() < source.avgSalary()
+                                                && emp.get_salary() > target.avgSalary())
+                                        .forEach(
+                                                (emp)-> printer.println("Сотрудник " + emp.get_name()
+                                                + ": отдел " + source.get_name()
+                                                + " -> отдел " + target.get_name()));
     }
 
     private String _name = "";

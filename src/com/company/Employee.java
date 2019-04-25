@@ -2,9 +2,9 @@ package com.company;
 
 public class Employee {
     private String name = "";
-    private double salary = 0.;
+    private int salary = 0;
 
-    Employee(String name, double salary){
+    Employee(String name, int salary){
         this.name = name;
         this.salary = salary;
     }
